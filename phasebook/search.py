@@ -26,5 +26,31 @@ def search_users(args):
     """
 
     # Implement search here!
+    
+    if not args:
+        return USERS
+    
+    usersToReturn = list() # Storage for users to be returned/displayed
+    argsList = list(args.items()) # List of arguments
 
-    return USERS
+    for [ i, x ] in argsList: #Loop through args given to sort
+        for user in USERS:
+            if user not in usersToReturn:
+
+                if ( i == "id" or i == "name" or i == "occupation"):
+                    
+                    xIsSubstring = user.get(i).lower().find(x.lower())
+
+                    if ( xIsSubstring > -1 ):
+                        usersToReturn.append(user)
+                
+                if ( i == "age" ):
+                    age = int(x)
+
+                    if ( age in user.values() 
+                          or age - 1 in user.values() 
+                          or age + 1 in user.values()):
+                        
+                        usersToReturn.append(user)
+
+    return usersToReturn
